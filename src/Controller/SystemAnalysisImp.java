@@ -330,10 +330,10 @@ public class SystemAnalysisImp extends UnicastRemoteObject implements SystemAnal
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         List<FeedBack> feedbackList = getAllFeedback(movie_id);
         
-        String[] category= {"အရမ်းကောင်း","ကောင်းသည်","အသင့်အတင့်","ရယ်ရသည်","ကြောက်ဖို့ကောင်း","မကောင်း"};
-        for (int j = 0; j < category.length; j++) {
-            double value=getFeedBack(category[j] ,feedbackList);
-            dataset.addValue(value, category[j], "");
+        String[] categorys= {"အရမ်းကောင်း","ကောင်းသည်","အသင့်အတင့်","ရယ်ရသည်","ကြောက်ဖို့ကောင်း","မကောင်း"};
+        for (String category : categorys) {
+            double value = getFeedBack(category, feedbackList);
+            dataset.addValue(value, category, "");
         }
         
 
