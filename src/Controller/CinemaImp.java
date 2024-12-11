@@ -25,13 +25,12 @@ public class CinemaImp extends UnicastRemoteObject implements CinemaInterface {
 
     static Connection con = null;
 
-    public CinemaImp() throws RemoteException{
-        
+    public CinemaImp() throws RemoteException {
+
     }
 
-            
     @Override
-    public int addCinema(Cinema cinema) throws RemoteException{
+    public int addCinema(Cinema cinema) throws RemoteException {
         int n = 0;
         try {
             con = new DatabaseConnection().getConnection();
@@ -51,7 +50,7 @@ public class CinemaImp extends UnicastRemoteObject implements CinemaInterface {
     }
 
     @Override
-    public void updateCinema(Cinema cinema) throws RemoteException{
+    public void updateCinema(Cinema cinema) throws RemoteException {
         try {
             con = new DatabaseConnection().getConnection();
             String query = "update cinema set branch=?,city=?,location=? where id=?";
@@ -69,7 +68,7 @@ public class CinemaImp extends UnicastRemoteObject implements CinemaInterface {
     }
 
     @Override
-    public void deleteCinema(int id) throws RemoteException{
+    public void deleteCinema(int id) throws RemoteException {
         try {
             con = new DatabaseConnection().getConnection();
             String query = "delete from cinema where id=?";
@@ -84,7 +83,7 @@ public class CinemaImp extends UnicastRemoteObject implements CinemaInterface {
     }
 
     @Override
-    public List<Cinema> getAllCinema() throws RemoteException{
+    public List<Cinema> getAllCinema() throws RemoteException {
         List<Cinema> list = new ArrayList<>();
         try {
             con = new DatabaseConnection().getConnection();
@@ -110,12 +109,12 @@ public class CinemaImp extends UnicastRemoteObject implements CinemaInterface {
     }
 
     @Override
-    public void logMessage(String log) throws RemoteException{
+    public void logMessage(String log) throws RemoteException {
         JOptionPane.showMessageDialog(null, log, "", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
-    public Cinema getCinema(int id) throws RemoteException{
+    public Cinema getCinema(int id) throws RemoteException {
         Cinema cinema = null;
         try {
             con = new DatabaseConnection().getConnection();

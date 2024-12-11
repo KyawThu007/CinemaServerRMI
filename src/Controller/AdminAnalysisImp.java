@@ -36,8 +36,7 @@ public class AdminAnalysisImp extends UnicastRemoteObject implements AdminAnalys
         List<Cinema> cinemaList = new CinemaImp().getAllCinema();
         for (Cinema cinema : cinemaList) {
             List<BuySeat> buySeatList = new BuySeatImp().getAllShowBuySeat(cinema.getId());
-            for (int j = 0; j < monthList.length; j++) {
-                String month = monthList[j];
+            for (String month : monthList) {
                 double price = getCinemaPrice(year, month, buySeatList);
                 dataset.addValue(price, cinema.getBranch(), month.substring(0, 3));
             }
@@ -53,10 +52,8 @@ public class AdminAnalysisImp extends UnicastRemoteObject implements AdminAnalys
         for (Cinema cinema : cinemaList) {
             double price = 0;
             List<BuySeat> buySeatList = new BuySeatImp().getAllShowBuySeat(cinema.getId());
-            for (int j = 0; j < monthList.length; j++) {
-                String month = monthList[j];
+            for (String month : monthList) {
                 price += getCinemaPrice(year, month, buySeatList);
-
             }
             if (price > 0) {
                 dataset.setValue(cinema.getBranch(), price);
@@ -71,14 +68,10 @@ public class AdminAnalysisImp extends UnicastRemoteObject implements AdminAnalys
        
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         List<BuySeat> buySeatList = new BuySeatImp().getAllShowBuySeat(cinema_id);
-        for (int i = 0; i < genreList.length; i++) {
-            String genre = genreList[i];
+        for (String genre : genreList) {
             double price = 0;
-            for (int j = 0; j < monthList.length; j++) {
-
-                String month = monthList[j];
+            for (String month : monthList) {
                 price += getCinemaGenrePrice(year, month, genre, buySeatList);
-
             }
             dataset.addValue(price, genre, "");
         }
@@ -205,8 +198,7 @@ public class AdminAnalysisImp extends UnicastRemoteObject implements AdminAnalys
             List<Salary> salaryList = new SalaryImp().getAllSalary(cinema.getId());
             double incomePrice = 0;
             double outcomePrice = 0;
-            for (int j = 0; j < monthList.length; j++) {
-                String month = monthList[j];
+            for (String month : monthList) {
                 incomePrice += getCinemaPrice(year, month, buySeatList);
                 outcomePrice += getExpensePrice(year, month, expenseList)+getSalaryPrice(year, month, salaryList);
             }
@@ -226,9 +218,7 @@ public class AdminAnalysisImp extends UnicastRemoteObject implements AdminAnalys
         List<Salary> salaryList = new SalaryImp().getAllSalary(cinema_id);
         double price = 0;
         double salary = 0;
-        for (int j = 0; j < monthList.length; j++) {
-
-            String month = monthList[j];
+        for (String month : monthList) {
             price += getExpensePrice(year, month, expenseList);
             salary += getSalaryPrice(year, month, salaryList);
         }

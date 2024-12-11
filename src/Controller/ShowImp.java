@@ -89,7 +89,7 @@ public class ShowImp extends UnicastRemoteObject implements ShowInterface {
 
     @Override
     public List<Show> getAllShowMovie(int cinema_id, String startDate, String endDate, String showTime) throws RemoteException {
-         List<Show> list = new ArrayList<>();
+        List<Show> list = new ArrayList<>();
         try {
             con = new DatabaseConnection().getConnection();
             String query = "select * from show2 where cinema_id=? and ? <= end_date and start_date <= ? and time = ?";

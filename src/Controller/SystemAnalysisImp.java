@@ -41,10 +41,9 @@ public class SystemAnalysisImp extends UnicastRemoteObject implements SystemAnal
         List<BuySeat> buySeatList = new BuySeatImp().getAllShowBuySeat(cinema_id);
         List<Expense> expenseList = new ExpenseImp().getAllExpense(cinema_id);
         List<Salary> salaryList = new SalaryImp().getAllSalary(cinema_id);
-        for (int j = 0; j < monthList.length; j++) {
+        for (String month : monthList) {
             double incomePrice = 0;
             double outcomePrice = 0;
-            String month = monthList[j];
             incomePrice += getCinemaPrice(year, month, buySeatList);
             outcomePrice += getExpensePrice(year, month, expenseList) + getSalaryPrice(year, month, salaryList);
             dataset.addValue(incomePrice, "Income", month.substring(0, 3));
@@ -59,14 +58,10 @@ public class SystemAnalysisImp extends UnicastRemoteObject implements SystemAnal
        
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         List<BuySeat> buySeatList = new BuySeatImp().getAllShowBuySeat(cinema_id);
-        for (int i = 0; i < genreList.length; i++) {
-            String genre = genreList[i];
+        for (String genre : genreList) {
             double price = 0;
-            for (int j = 0; j < monthList.length; j++) {
-
-                String month = monthList[j];
+            for (String month : monthList) {
                 price += getCinemaGenrePrice(year, month, genre, buySeatList);
-
             }
             dataset.addValue(price, genre, "");
         }
@@ -152,10 +147,8 @@ public class SystemAnalysisImp extends UnicastRemoteObject implements SystemAnal
        
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         List<BuySeat> buySeatList = new BuySeatImp().getAllShowBuySeat(cinema_id);
-        for (int i = 0; i < genreList.length; i++) {
-            String genre = genreList[i];
-            for (int j = 0; j < monthList.length; j++) {
-                String month = monthList[j];
+        for (String genre : genreList) {
+            for (String month : monthList) {
                 double price = getMovieGenre(year, month, genre, buySeatList);
                 dataset.addValue(price, genre, month.substring(0, 3));
             }
@@ -168,18 +161,14 @@ public class SystemAnalysisImp extends UnicastRemoteObject implements SystemAnal
        
         DefaultPieDataset dataset = new DefaultPieDataset();
         List<BuySeat> buySeatList = new BuySeatImp().getAllShowBuySeat(cinema_id);
-        for (int i = 0; i < genreList.length; i++) {
-            String genre = genreList[i];
+        for (String genre : genreList) {
             double price = 0;
-            for (int j = 0; j < monthList.length; j++) {
-                String month = monthList[j];
+            for (String month : monthList) {
                 price += getMovieGenre(year, month, genre, buySeatList);
-
             }
             if (price > 0) {
                 dataset.setValue(genre, price);
             }
-
         }
         return dataset;
     }
@@ -289,9 +278,7 @@ public class SystemAnalysisImp extends UnicastRemoteObject implements SystemAnal
         List<Salary> salaryList = new SalaryImp().getAllSalary(cinema_id);
         double price = 0;
         double salary = 0;
-        for (int j = 0; j < monthList.length; j++) {
-
-            String month = monthList[j];
+        for (String month : monthList) {
             price += getExpensePrice(year, month, expenseList);
             salary += getSalaryPrice(year, month, salaryList);
         }
@@ -301,10 +288,9 @@ public class SystemAnalysisImp extends UnicastRemoteObject implements SystemAnal
         return getReduceDataSet(dataset);
     }
     public List<FeedBack> getAllFeedback(int movie_id) {
-        Connection con = null;
         List<FeedBack> list = new ArrayList<>();
         try {
-            con = new DatabaseConnection().getConnection();
+            Connection con = new DatabaseConnection().getConnection();
             String query = "select * from rating where m_id=?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, movie_id);

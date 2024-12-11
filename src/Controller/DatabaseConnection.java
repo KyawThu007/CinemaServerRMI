@@ -13,28 +13,28 @@ import java.sql.SQLException;
  * @author DELL
  */
 public class DatabaseConnection {
-    static Connection con=null;
-	
-	public Connection getConnection()
-	{
-		String url="jdbc:mysql://localhost:3307/cinemaDB";
-		String username="root";
-		String password="";
-		try {
-			try {
-				Class.forName("com.mysql.cj.jdbc.Driver");
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			con=DriverManager.getConnection(url, username, password);
-			if(con!=null) {
-				//System.out.println("Connected");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return con;
-	}
+
+    static Connection con = null;
+
+    public Connection getConnection() {
+        String url = "jdbc:mysql://localhost:3307/cinemaDB";
+        String username = "root";
+        String password = "";
+        try {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            con = DriverManager.getConnection(url, username, password);
+            if (con != null) {
+                //System.out.println("Connected");
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return con;
+    }
 }

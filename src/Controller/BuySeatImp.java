@@ -122,11 +122,11 @@ public class BuySeatImp extends UnicastRemoteObject implements BuySeatInterface 
         Collections.reverse(list);
         return list;
     }
-    
-    @Override
-    public BuySeat getBuySeat(int id) throws RemoteException{
 
-        BuySeat buySeat=null;
+    @Override
+    public BuySeat getBuySeat(int id) throws RemoteException {
+
+        BuySeat buySeat = null;
         try {
             con = new DatabaseConnection().getConnection();
             String query = "select * from buySeat where id=?";

@@ -8,8 +8,8 @@ public class SharedData {
     private int cinema_id;
     private List<BuySeat> buySeatlist;
     private String control;
-    private String[] genreList= {"Action","Adventure","Comedy","Drama","Fantasy","Historical","Horror","Musical","Mystery","Romance","Science Fiction (Sci-Fi)","Thriller","Western","Documentary","Biography","Crime","Animation"};
-    private String[] monthList={"January","February","March","April","May","June","July","August","September","October","November","December"};
+    private String[] genreList = {"Action", "Adventure", "Comedy", "Drama", "Fantasy", "Historical", "Horror", "Musical", "Mystery", "Romance", "Science Fiction (Sci-Fi)", "Thriller", "Western", "Documentary", "Biography", "Crime", "Animation"};
+    private String[] monthList = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private static SharedData instance;
 
     private SharedData() {
