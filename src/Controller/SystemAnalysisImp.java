@@ -7,6 +7,7 @@ package Controller;
 import Interface.SystemAnalysisInterface;
 import Model.BuySeat;
 import Model.Expense;
+import Model.FeedBack;
 import Model.Movie;
 import Model.Salary;
 import Model.Show;
@@ -17,6 +18,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import java.rmi.*;
 import java.rmi.server.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -294,4 +300,54 @@ public class SystemAnalysisImp extends UnicastRemoteObject implements SystemAnal
 
         return getReduceDataSet(dataset);
     }
+    public List<FeedBack> getAllFeedback(int movie_id) {
+        Connection con = null;
+        List<FeedBack> list = new ArrayList<>();
+        try {
+            con = new DatabaseConnection().getConnection();
+            String query = "select * from rating where m_id=?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, movie_id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                FeedBack feedBack = new FeedBack();
+                feedBack.setMovie_id(rs.getInt("m_id"));
+                feedBack.setEmoji("emoji");
+                list.add(feedBack);
+            }
+            rs.close();
+            ps.close();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    @Override
+    public DefaultCategoryDataset getFeedbackAnalysis(int movie_id) throws RemoteException{
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        List<FeedBack> feedbackList = getAllFeedback(movie_id);
+        
+        String[] category= {"အရမ်းကောင်း","ကောင်းသည်","အသင့်အတင့်","ရယ်ရသည်","ကြောက်ဖို့ကောင်း","မကောင်း"};
+        for (int j = 0; j < category.length; j++) {
+            double value=getFeedBack(category[j] ,feedbackList);
+            dataset.addValue(value, category[j], "");
+        }
+        
+
+        return getReduceDataSet(dataset);    
+    }
+    
+   public double getFeedBack(String category,List<FeedBack> feedbackList) {
+        double count = 0;
+        for (FeedBack feedBack : feedbackList) {
+            if (feedBack.equals(category)) {
+                count ++;
+            }
+        }
+
+        return count;
+    } 
 }
